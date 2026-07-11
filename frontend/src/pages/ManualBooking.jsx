@@ -69,11 +69,14 @@ const ManualBooking = () => {
     );
 
     const data = await response.json();
-    console.log("AI RESPONSE:", data);
 
-    navigate("/appointment/analysis", {
-      state: data,
-    });
+console.log("========== BACKEND RESPONSE ==========");
+console.log(data);
+console.log(JSON.stringify(data, null, 2));
+
+navigate("/appointment/analysis", {
+  state: data,
+});
 
   } catch (error) {
     console.error(error);

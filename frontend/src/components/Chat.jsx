@@ -1,161 +1,266 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import InputBar from "./InputBar";
+import Sidebar from "./Sidebar";
 
 import {
   FiArrowLeft,
-  FiPlus,
-  FiSend,
-  FiMic,
+  FiMenu,
 } from "react-icons/fi";
 
 const Chat = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const firstMessage = location.state?.firstMessage || "";
+  const chatId = location.state?.chatId;
+  const firstMessage =
+    location.state?.firstMessage || "";
 
-  const [chatHistory, setChatHistory] = useState([]);
+  const [sidebarOpen, setSidebarOpen] =
+    useState(false);
 
-  const [messages, setMessages] = useState(
-    firstMessage
-      ? [
+  const [messages, setMessages] = useState([]);
+  const [prompt, setPrompt] = useState("");
+  const [loading, setLoading] =
+    useState(false);
+
+  const messagesEndRef = useRef(null);
+
+  // Load selected chat
+  useEffect(() => {
+    const savedChats =
+      JSON.parse(
+        localStorage.getItem("chatHistory")
+      ) || [];
+
+    const selectedChat = savedChats.find(
+      (chat) => chat.id === chatId
+    );
+
+    if (selectedChat?.messages) {
+      setMessages(selectedChat.messages);
+    }
+  }, [chatId]);
+
+  // Auto scroll
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, [messages]);
+
+  // Create chat on first message
+  useEffect(() => {
+    if (!chatId || !firstMessage) return;
+
+    const savedChats =
+      JSON.parse(
+        localStorage.getItem("chatHistory")
+      ) || [];
+
+    const exists = savedChats.find(
+      (chat) => chat.id === chatId
+    );
+
+    if (!exists) {
+      const newChat = {
+        id: chatId,
+        title: firstMessage,
+        messages: [
           {
             role: "user",
             content: firstMessage,
           },
-          {
-            role: "assistant",
-            content: "Hello! How can I help you today?",
-          },
-        ]
-      : [
-          {
-            role: "assistant",
-            content: "Hello! How can I help you today?",
-          },
-        ]
-  );
+        ],
+      };
 
-  const [prompt, setPrompt] = useState("");
-
-  // Load chat history
-  useEffect(() => {
-    const savedChats =
-      JSON.parse(localStorage.getItem("chatHistory")) || [];
-
-    setChatHistory(savedChats);
-  }, []);
-
-  // Save first prompt when page opens
-  useEffect(() => {
-    if (!firstMessage) return;
-
-    const savedChats =
-      JSON.parse(localStorage.getItem("chatHistory")) || [];
-
-    const exists = savedChats.some(
-      (chat) => chat.title === firstMessage
-    );
-
-    if (!exists) {
       const updatedChats = [
-        {
-          id: Date.now(),
-          title: firstMessage,
-        },
+        newChat,
         ...savedChats,
       ];
-
-      setChatHistory(updatedChats);
 
       localStorage.setItem(
         "chatHistory",
         JSON.stringify(updatedChats)
       );
+
+      sendFirstMessage(firstMessage);
     }
-  }, [firstMessage]);
+  }, []);
 
-  const sendMessage = () => {
-    if (!prompt.trim()) return;
+  const sendFirstMessage = async (
+    message
+  ) => {
+    try {
+      setLoading(true);
 
-    const userPrompt = prompt;
+      setMessages([
+        {
+          role: "user",
+          content: message,
+        },
+      ]);
+
+      const res = await axios.post(
+        "http://localhost:5000/api/chat",
+        { message }
+      );
+
+      const aiReply = res.data.answer;
+
+      const updatedMessages = [
+        {
+          role: "user",
+          content: message,
+        },
+        {
+          role: "assistant",
+          content: aiReply,
+        },
+      ];
+
+      setMessages(updatedMessages);
+
+      const chats =
+        JSON.parse(
+          localStorage.getItem("chatHistory")
+        ) || [];
+
+      const updatedChats = chats.map(
+        (chat) =>
+          chat.id === chatId
+            ? {
+                ...chat,
+                messages: updatedMessages,
+              }
+            : chat
+      );
+
+      localStorage.setItem(
+        "chatHistory",
+        JSON.stringify(updatedChats)
+      );
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+const uploadPDF = async (file) => {
+  try {
+    const formData = new FormData();
+
+    formData.append("file", file);
+
+    const res = await axios.post(
+      "http://localhost:5000/api/upload/chatbot",
+      formData
+    );
+
+    setMessages((prev) => [
+  ...prev,
+  {
+    role: "user",
+    type: "pdf",
+    fileName: file.name,
+  },
+]);
+
+  } catch (error) {
+    console.error(error);
+  }
+};
+const analyzeImage = async (file) => {
+  console.log("IMAGE GOING TO BACKEND");
+setMessages((prev) => [
+  ...prev,
+  {
+    role: "user",
+    type: "image",
+    imageUrl: URL.createObjectURL(file),
+  },
+]);
+  const formData = new FormData();
+  formData.append("image", file);
+
+  try {
+    const res = await axios.post(
+      "http://localhost:5000/api/vision/analyze",
+      formData
+    );
+
+    console.log("VISION RESPONSE:", res.data);
 
     setMessages((prev) => [
       ...prev,
       {
-        role: "user",
-        content: userPrompt,
-      },
-      {
         role: "assistant",
-        content: `You asked: ${userPrompt}`,
+        content: res.data.result,
       },
     ]);
+  } catch (error) {
+    console.error(error);
+  }
+};
+const sendMessage = async (files = []) => {
+ console.log("FILES RECEIVED:", files);
+  // PDF
+ if (files.length > 0) {
+  const file = files[0];
 
-    if (
-      !chatHistory.some(
-        (chat) => chat.title === userPrompt
-      )
-    ) {
-      const updatedChats = [
-        {
-          id: Date.now(),
-          title: userPrompt,
-        },
-        ...chatHistory,
-      ];
+  if (file.type.includes("pdf")) {
+    await uploadPDF(file);
+    return;
+  }
 
-      setChatHistory(updatedChats);
+  if (file.type.includes("image")) {
+    console.log("IMAGE DETECTED");
+    await analyzeImage(file);
+    return;
+  }
+}
 
-      localStorage.setItem(
-        "chatHistory",
-        JSON.stringify(updatedChats)
-      );
-    }
+if (!prompt.trim()) return;
+};
 
-    setPrompt("");
-  };
 
   return (
     <div className="h-screen bg-black text-white flex">
-      {/* Sidebar */}
-      <div className="w-72 bg-[#171717] border-r border-gray-800 p-4 flex flex-col">
-        <button
-          onClick={() => navigate("/ui")}
-          className="mb-6 bg-[#232323] p-3 rounded-xl hover:bg-[#2d2d2d]"
-        >
-          ← New Chat
-        </button>
+      {/* Common Sidebar */}
+      <Sidebar
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
 
-        <h3 className="text-gray-400 text-sm mb-4">
-          Recents
-        </h3>
-
-        <div className="space-y-2 overflow-y-auto">
-          {chatHistory.map((chat) => (
-            <div
-              key={chat.id}
-              className="bg-[#232323] hover:bg-[#2d2d2d] rounded-xl p-3 cursor-pointer truncate"
-            >
-              {chat.title}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Main Chat Area */}
+      {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
         <div className="flex items-center p-4 border-b border-gray-800">
           <button
             onClick={() => navigate("/ui")}
-            className="bg-[#1d1d1d] p-3 rounded-lg hover:bg-[#2a2a2a]"
+            className="bg-[#1d1d1d] p-3 rounded-lg"
           >
             <FiArrowLeft size={20} />
           </button>
 
+          <button
+            onClick={() =>
+              setSidebarOpen(true)
+            }
+            className="md:hidden bg-[#1d1d1d] p-3 rounded-lg ml-2"
+          >
+            <FiMenu />
+          </button>
+
           <h1 className="ml-4 text-lg font-semibold">
-            agency.ai Chat
+            MediStAI Chat
           </h1>
         </div>
 
@@ -178,41 +283,53 @@ const Chat = () => {
                       : "bg-[#242424]"
                   }`}
                 >
-                  {msg.content}
+                 {msg.type === "image" ? (
+  <img
+    src={msg.imageUrl}
+    alt="uploaded"
+    className="max-w-xs rounded-xl"
+  />
+) : msg.type === "pdf" ? (
+  <div className="bg-gray-700 p-3 rounded-xl">
+    📄 {msg.fileName}
+  </div>
+) : (
+  msg.content
+)}
                 </div>
               </div>
             ))}
+
+            {loading && (
+              <div className="flex justify-start">
+                <div className="px-5 py-3 rounded-3xl bg-[#242424]">
+                  <span className="animate-pulse">
+                    Thinking...
+                  </span>
+                </div>
+              </div>
+            )}
+
+            <div ref={messagesEndRef}></div>
           </div>
         </div>
 
         {/* Input */}
         <div className="border-t border-gray-800 p-5">
-          <div className="max-w-4xl mx-auto bg-[#1d1d1d] rounded-full px-6 py-4 flex items-center gap-4">
-            <FiPlus className="text-xl" />
-
-            <input
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              onKeyDown={(e) =>
-                e.key === "Enter" && sendMessage()
-              }
-              placeholder="Ask agency.ai"
-              className="flex-1 bg-transparent outline-none text-white"
-            />
-
-            <FiMic className="text-xl" />
-
-            <button
-              onClick={sendMessage}
-              className="text-blue-500 hover:text-blue-400"
-            >
-              <FiSend size={20} />
-            </button>
-          </div>
-        </div>
+  <div className="max-w-4xl mx-auto">
+    <InputBar
+  prompt={prompt}
+  setPrompt={setPrompt}
+  onSend={sendMessage}
+  enableUploads={true}
+/>
+  </div>
+</div>
       </div>
     </div>
   );
 };
 
 export default Chat;
+
+

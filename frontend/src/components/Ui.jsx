@@ -1,34 +1,35 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-
+import InputBar from "./InputBar";
 import Sidebar from "./Sidebar";
 
 import {
-  FiPlus,
-  FiSend,
-  FiMic,
   FiMenu,
-  FiArrowLeft,
-  FiCamera,
-  FiUpload,
-  FiFolder,
-  FiImage,
-} from "react-icons/fi";
+  FiArrowLeft
+  } from "react-icons/fi";
 
 const Ui = () => {
   const { user } = useAuth0();
   const navigate = useNavigate();
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [plusMenuOpen, setPlusMenuOpen] = useState(false);
-  const [prompt, setPrompt] = useState("");
+  const [sidebarOpen, setSidebarOpen] =
+    useState(false);
+
+  const [plusMenuOpen, setPlusMenuOpen] =
+    useState(false);
+
+  const [prompt, setPrompt] =
+    useState("");
 
   const handleSend = () => {
     if (!prompt.trim()) return;
 
+    const newChatId = Date.now();
+
     navigate("/chat", {
       state: {
+        chatId: newChatId,
         firstMessage: prompt,
       },
     });
@@ -36,12 +37,15 @@ const Ui = () => {
 
   return (
     <div className="h-screen bg-black text-white flex overflow-hidden">
+      {/* Sidebar */}
       <Sidebar
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
       />
 
+      {/* Main Content */}
       <div className="flex-1 relative flex flex-col items-center justify-center px-6">
+        {/* Back Button */}
         <button
           onClick={() => navigate("/")}
           className="absolute top-5 left-5 bg-[#1d1d1d] p-3 rounded-lg z-30"
@@ -49,83 +53,38 @@ const Ui = () => {
           <FiArrowLeft />
         </button>
 
+        {/* Mobile Sidebar Button */}
         <button
-          onClick={() => setSidebarOpen(true)}
+          onClick={() =>
+            setSidebarOpen(true)
+          }
           className="md:hidden absolute top-5 left-20 bg-[#1d1d1d] p-3 rounded-lg z-30"
         >
           <FiMenu />
         </button>
 
+        {/* Background Glow */}
         <div className="absolute w-[700px] h-[700px] bg-blue-700/20 blur-[180px] rounded-full" />
 
+        {/* Heading */}
         <h1 className="text-5xl mb-10 z-10 text-center">
           The mic is yours,{" "}
-          {user?.given_name || user?.name?.split("@")[0]}
+          {user?.given_name ||
+            user?.name?.split("@")[0]}
         </h1>
 
-        <div className="w-full max-w-3xl relative z-10">
-          {plusMenuOpen && (
-            <div className="absolute bottom-20 left-0 w-72 bg-[#242424] rounded-xl">
-              <button className="w-full p-4 flex gap-3">
-                <FiCamera />
-                Camera
-              </button>
-
-              <button className="w-full p-4 flex gap-3">
-                <FiUpload />
-                Upload Files
-              </button>
-
-              <button className="w-full p-4 flex gap-3">
-                <FiFolder />
-                Add From Drive
-              </button>
-
-              <button className="w-full p-4 flex gap-3">
-                <FiImage />
-                Create Image
-              </button>
-            </div>
-          )}
-
-          <div className="bg-[#1d1d1d] rounded-full px-6 py-4 flex items-center gap-4">
-            <button
-              onClick={() =>
-                setPlusMenuOpen(!plusMenuOpen)
-              }
-            >
-              <FiPlus />
-            </button>
-
-            <input
-              value={prompt}
-              onChange={(e) =>
-                setPrompt(e.target.value)
-              }
-              onKeyDown={(e) =>
-                e.key === "Enter" && handleSend()
-              }
-              placeholder="Ask agency.ai"
-              className="flex-1 bg-transparent outline-none"
-            />
-
-            <FiMic />
-
-            <button
-              onClick={handleSend}
-              className="text-blue-500"
-            >
-              <FiSend />
-            </button>
-          </div>
-        </div>
+        {/* Input Area */}
+        <InputBar
+  prompt={prompt}
+  setPrompt={setPrompt}
+  onSend={handleSend}
+/>
       </div>
     </div>
   );
 };
 
 export default Ui;
-
 
 // import React, { useState } from "react";
 // import { useAuth0 } from "@auth0/auth0-react";

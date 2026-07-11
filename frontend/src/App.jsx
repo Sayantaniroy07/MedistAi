@@ -58,6 +58,7 @@ const App = () => {
   path="/appointment/manual"
   element={<ManualBooking />}
 />
+
 <Route
   path="/appointment/analysis"
   element={<AIAnalysis />}

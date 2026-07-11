@@ -44,154 +44,128 @@ const AppointmentLanding = () => {
               Choose your preferred booking method. Search doctors manually or
               let our AI Health Assistant find the best specialist for you.
             </p>
-          </div>
+               {/* Workflow */}
+            <div className="mt-28">
+            <div className="text-center mb-14">
+              <h2 className="text-4xl font-bold dark:text-white">
+                How It Works
+              </h2>
+            </div>
 
+            <div className="grid md:grid-cols-5 gap-5">
+              {[
+                "Share Location",
+                "Choose Doctor / AI",
+                "Select Slot",
+                "Pay Securely",
+                "Appointment Confirmed",
+              ].map((step, index) => (
+                <div
+                  key={index}
+                  className="
+                  bg-white
+                  dark:bg-[#111]
+                  border
+                  border-gray-200
+                  dark:border-[#2A2A2A]
+                  rounded-3xl
+                  p-6
+                  text-center
+                "
+                >
+                  <div className="w-10 h-10 rounded-full bg-[#5044E5] text-white flex items-center justify-center mx-auto">
+                    {index + 1}
+                  </div>
+
+                  <p className="mt-4 font-medium dark:text-white">
+                    {step}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+          </div>
+          
           {/* Booking Cards */}
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="flex justify-center">
 
             {/* Manual Booking */}
             <div
-              className="
-              group
-              bg-white
-              dark:bg-[#111]
-              border
-              border-gray-200
-              dark:border-[#2A2A2A]
-              rounded-[32px]
-              p-10
-              hover:border-[#5044E5]
-              hover:-translate-y-2
-              transition-all
-              duration-500
-              hover:shadow-[0_20px_60px_rgba(80,68,229,0.15)]
-            "
-            >
-              <div className="w-16 h-16 rounded-2xl bg-[#EEF2FF] dark:bg-[#1a1a1a] flex items-center justify-center text-3xl">
-                📍
-              </div>
+  className="
+    group
+    w-full
+    max-w-6xl
+    mx-auto
+    bg-white
+    dark:bg-[#111]
+    border
+    border-gray-200
+    dark:border-[#2A2A2A]
+    rounded-[32px]
+    p-10
+    text-center
+    hover:border-[#5044E5]
+    hover:-translate-y-2
+    transition-all
+    duration-500
+    hover:shadow-[0_20px_60px_rgba(80,68,229,0.15)]
+  "
+>
+  
 
-              <h2 className="mt-8 text-3xl font-bold dark:text-white">
-                Manual Booking
-              </h2>
+  {/* Title */}
+  <h2 className="mt-8 text-3xl font-bold dark:text-white">
+    📍  Manual Booking
+  </h2>
 
-              <p className="mt-4 text-gray-600 dark:text-gray-400">
-                Search doctors yourself and choose your preferred appointment slot.
-              </p>
+  {/* Description */}
+  <p className="mt-4 text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+    Search doctors yourself and choose your preferred appointment slot.
+  </p>
 
-              <div className="mt-8 space-y-4">
-                {[
-                  "Choose your location",
-                  "Select specialization",
-                  "Browse doctors nearby",
-                  "Pick date & time",
-                ].map((item, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-[#5044E5]" />
-                    <span className="dark:text-gray-300">{item}</span>
-                  </div>
-                ))}
-              </div>
+  {/* Features */}
+  <div className="mt-8 flex flex-col items-center gap-5">
+    {[
+      "Choose your location",
+      "Select specialization",
+      "Browse doctors nearby",
+      "Pick date & time",
+    ].map((item, index) => (
+      <div
+        key={index}
+        className="flex items-center gap-3 w-fit"
+      >
+        <div className="w-2 h-2 rounded-full bg-[#5044E5]" />
+        <span className="dark:text-gray-300 text-lg">{item}</span>
+      </div>
+    ))}
+  </div>
 
-              <button
-                onClick={() => navigate("/appointment/manual")}
-                className="
-                mt-10
-                px-8
-                py-4
-                rounded-full
-                border
-                border-[#5044E5]
-                text-[#5044E5]
-                dark:text-white
-                hover:bg-[#5044E5]
-                hover:text-white
-                transition-all
-                duration-300
-              "
-              >
-                Continue Manually →
-              </button>
-            </div>
-
-            {/* AI Assistant */}
-            <div
-              className="
-              relative
-              overflow-hidden
-              rounded-[32px]
-              p-10
-              bg-gradient-to-br
-              from-[#5044E5]
-              to-[#4d8cea]
-              text-white
-              hover:-translate-y-2
-              transition-all
-              duration-500
-              shadow-[0_20px_60px_rgba(80,68,229,0.35)]
-            "
-            >
-              <span
-                className="
-                absolute
-                top-5
-                right-5
-                px-4
-                py-1
-                rounded-full
-                bg-white/20
-                text-sm
-              "
-              >
-                Recommended
-              </span>
-
-              <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center text-3xl">
-                🤖
-              </div>
-
-              <h2 className="mt-8 text-3xl font-bold">
-                AI Health Assistant
-              </h2>
-
-              <p className="mt-4 text-white/90">
-                Describe your symptoms naturally and let AI find the right doctor.
-              </p>
-
-              <div className="mt-8 space-y-4">
-                {[
-                  "Describe symptoms naturally",
-                  "AI recommends specialist",
-                  "Find nearby doctors",
-                  "Book available slots instantly",
-                ].map((item, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <span>✨</span>
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-
-              <button
-                onClick={() => navigate("/appointment/ai")}
-                className="
-                mt-10
-                px-8
-                py-4
-                rounded-full
-                bg-white
-                text-[#5044E5]
-                font-semibold
-                hover:scale-105
-                transition-all
-                duration-300
-              "
-              >
-                Start AI Consultation →
-              </button>
-            </div>
-          </div>
-
+  {/* Button */}
+  <div className="mt-10">
+    <button
+      onClick={() => navigate("/appointment/manual")}
+      className="
+        px-8
+        py-4
+        rounded-full
+        border
+        border-[#5044E5]
+        text-[#5044E5]
+        dark:text-white
+        hover:bg-[#5044E5]
+        hover:text-white
+        transition-all
+        duration-300
+      "
+    >
+      Continue →
+    </button>
+  </div>
+</div>
+           
+          <div/>
+</div>
           {/* Features */}
           <div className="mt-28">
             <div className="text-center mb-14">
@@ -233,72 +207,6 @@ const AppointmentLanding = () => {
               ))}
             </div>
           </div>
-
-          {/* Workflow */}
-          <div className="mt-28">
-            <div className="text-center mb-14">
-              <h2 className="text-4xl font-bold dark:text-white">
-                How It Works
-              </h2>
-            </div>
-
-            <div className="grid md:grid-cols-5 gap-5">
-              {[
-                "Share Location",
-                "Choose Doctor / AI",
-                "Select Slot",
-                "Pay Securely",
-                "Appointment Confirmed",
-              ].map((step, index) => (
-                <div
-                  key={index}
-                  className="
-                  bg-white
-                  dark:bg-[#111]
-                  border
-                  border-gray-200
-                  dark:border-[#2A2A2A]
-                  rounded-3xl
-                  p-6
-                  text-center
-                "
-                >
-                  <div className="w-10 h-10 rounded-full bg-[#5044E5] text-white flex items-center justify-center mx-auto">
-                    {index + 1}
-                  </div>
-
-                  <p className="mt-4 font-medium dark:text-white">
-                    {step}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div className="text-center mt-24">
-            <button
-              onClick={() => navigate("/appointment/ai")}
-              className="
-              px-10
-              py-5
-              rounded-full
-              bg-gradient-to-r
-              from-[#5044E5]
-              to-[#4d8cea]
-              text-white
-              font-semibold
-              text-lg
-              hover:scale-105
-              transition-all
-              duration-300
-              shadow-xl
-            "
-            >
-              Start Booking →
-            </button>
-          </div>
-
         </div>
       </section>
     

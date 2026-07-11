@@ -1,30 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const AIAnalysis = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
+  setProgress((prev) => {
+    if (prev >= 100) {
+      clearInterval(interval);
 
-          setTimeout(() => {
-            navigate("/appointment/recommendations");
-          }, 1000);
+      setTimeout(() => {
+        navigate("/appointment/recommendations", {
+          state: location.state,
+        });
+      }, 1000);
 
-          return 100;
-        }
+      return 100;
+    }
 
-        return prev + 10;
-      });
-    }, 400);
+    return prev + 10;
+  });
+}, 400);
 
-    return () => clearInterval(interval);
-  }, []);
+return () => clearInterval(interval);
+}, [navigate, location]);
 
   return (
     <section className="min-h-screen bg-[#F4F8FF] dark:bg-black flex items-center justify-center px-6">

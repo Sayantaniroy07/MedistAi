@@ -1,10 +1,9 @@
 import express from "express";
 import cors from "cors";
-
+import visionRoutes from "./routes/visionRoutes.js";
 import uploadRoutes from "./routes/upload.js";
 import doctorRoutes from "./routes/doctors.js";
-// import chatRoutes from "./routes/chatRoutes.js";
-
+import chatRoutes from "./routes/chatRoutes.js";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 
@@ -15,9 +14,14 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-// app.use("/api/chat", chatRoutes);
+
+app.use("/api/chat", chatRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/doctors", doctorRoutes);
+app.use(
+  "/api/vision",
+  visionRoutes
+);
 app.get("/test", (req, res) => {
   res.send("Server OK");
 });

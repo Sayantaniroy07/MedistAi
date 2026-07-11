@@ -8,21 +8,31 @@ const DoctorRecommendations = () => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [selectedDate, setSelectedDate] = useState("Today");
   const [selectedSlot, setSelectedSlot] = useState("");
-
 const location = useLocation();
+
+console.log("========== LOCATION STATE ==========");
+console.log(location.state);
 
 const analysis = {
   disease:
-    location.state?.disease || "Unknown",
+    location.state?.disease ||
+    location.state?.analysis?.disease ||
+    "Unknown",
 
   specialist:
     location.state?.specialization ||
+    location.state?.analysis?.specialization ||
     "General Physician",
-};
 
+  confidence:
+    location.state?.confidence ||
+    location.state?.analysis?.confidence ||
+    "N/A",
+};
 const doctors =
   location.state?.doctors || [];
-
+console.log("========== LOCATION STATE ==========");
+console.log(location.state);
   const dates = [
     "Today",
     "Tomorrow",

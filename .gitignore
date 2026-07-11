@@ -1,7 +1,34 @@
-﻿node_modules/
-.env
-.env.local
+﻿
+# Node.js
+
+node_modules/
 dist/
 build/
-backend/uploads/
+
+
+# Python
+
 .venv/
+venv/
+__pycache__/
+*.pyc
+
+
+# Environment Variables
+
+.env
+.env.local
+
+
+# AI / RAG
+
+vectorstore/
+
+# Uploads (optional)
+backend/uploads/
+
+# VS Code
+.vscode/
+
+.DS_Store
+Thumbs.db
