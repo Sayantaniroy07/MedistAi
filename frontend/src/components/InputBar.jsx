@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import {
   FiPlus,
   FiSend,
-  FiMic,
   FiCamera,
   FiUpload,
   FiFolder,
@@ -24,47 +23,9 @@ const InputBar = ({
   const fileInputRef = useRef(null);
   const cameraInputRef = useRef(null);
 
-  // =========================
-  // VOICE
-  // =========================
+  
 
-  const startListening = () => {
-    const SpeechRecognition =
-      window.SpeechRecognition ||
-      window.webkitSpeechRecognition;
-
-    if (!SpeechRecognition) {
-      alert(
-        "Speech Recognition not supported"
-      );
-      return;
-    }
-
-    const recognition =
-      new SpeechRecognition();
-
-    recognition.lang =
-      navigator.language || "en-US";
-
-    recognition.interimResults = false;
-
-    recognition.onresult = (event) => {
-      const transcript =
-        event.results[0][0].transcript;
-
-      setPrompt((prev) =>
-        prev
-          ? `${prev} ${transcript}`
-          : transcript
-      );
-    };
-
-    recognition.start();
-  };
-
-  // =========================
   // FILE UPLOAD
-  // =========================
 
   const handleFileUpload = (e) => {
     const file = e.target.files?.[0];
@@ -78,9 +39,7 @@ const InputBar = ({
     setPlusMenuOpen(false);
   };
 
-  // =========================
   // CAMERA
-  // =========================
 
   const handleCameraCapture = (e) => {
     const file = e.target.files?.[0];
@@ -94,9 +53,7 @@ const InputBar = ({
     setPlusMenuOpen(false);
   };
 
-  // =========================
   // REMOVE FILE
-  // =========================
 
   const removeFile = (index) => {
     setSelectedFiles((prev) =>
@@ -104,9 +61,7 @@ const InputBar = ({
     );
   };
 
-  // =========================
   // SEND
-  // =========================
 
  const handleSend = () => {
   console.log("INPUTBAR:", prompt, selectedFiles);
