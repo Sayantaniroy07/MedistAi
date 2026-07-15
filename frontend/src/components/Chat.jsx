@@ -109,7 +109,7 @@ const Chat = () => {
       ]);
 
       const res = await axios.post(
-        "http://localhost:5000/api/chat",
+        "https://medistai.onrender.com/api/chat",
         { message }
       );
 
@@ -162,7 +162,7 @@ const uploadPDF = async (file) => {
     formData.append("file", file);
 
     const res = await axios.post(
-      "http://localhost:5000/api/upload/chatbot",
+      "https://medistai.onrender.com/api/upload/chatbot",
       formData
     );
 
@@ -194,7 +194,7 @@ setMessages((prev) => [
 
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/vision/analyze",
+      "https://medistai.onrender.com/api/vision/analyze",
       formData
     );
 
@@ -254,7 +254,7 @@ if (!text.trim()) return;
     setLoading(true);
 
    const res = await axios.post(
-  "http://localhost:5000/api/chat",
+  "https://medistai.onrender.com/api/chat",
   {
     message: text,
   }

@@ -1,2 +1,2 @@
-POST http://localhost:5000/api/upload/prescription
+POST https://medistai.onrender.com/api/upload/prescription
 Content-Type: multipart/form-data

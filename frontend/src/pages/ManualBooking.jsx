@@ -63,7 +63,7 @@ const handleContinue = async () => {
     uploadData.append("specialty", formData.specialty);
 
     const response = await fetch(
-      "http://localhost:5000/api/upload/prescription",
+      "https://medistai.onrender.com/api/upload/prescription",
       {
         method: "POST",
         body: uploadData,
