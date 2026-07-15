@@ -72,13 +72,10 @@ const Ui = () => {
         Your AI medical assistant is ready.
     </span>
 
-    {/* <span className="block mt-3 text-4xl md:text-5xl text-blue-300">
-        {user?.given_name || user?.name?.split("@")[0]}
-    </span> */}
 </h1>
 <p className="z-10 mb-10 text-lg text-gray-400 text-center max-w-xl">
     Ask anything about your health, upload prescriptions,
-    analyze reports, or book appointments with AI assistance.
+    analyze reports with AI Medical Assistant.
 </p>
         {/* Input Area */}
        <div className="z-10 w-full max-w-4xl">

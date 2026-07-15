@@ -180,7 +180,7 @@ const InputBar = ({
             className="w-full p-4 flex gap-3 hover:bg-[#2d2d2d]"
           >
             <FiCamera />
-            Camera
+            Upload Image
           </button>
 
           {/* UPLOAD */}
@@ -196,37 +196,9 @@ const InputBar = ({
             Upload Files
           </button>
 
-          {/* DRIVE */}
+          
 
-          <button
-            type="button"
-            onClick={() =>
-              alert(
-                "Google Drive integration coming soon"
-              )
-            }
-            className="w-full p-4 flex gap-3 hover:bg-[#2d2d2d]"
-          >
-            <FiFolder />
-            Add From Drive
-          </button>
-
-          {/* IMAGE */}
-
-          <button
-            type="button"
-            onClick={() => {
-              setPrompt(
-                "Generate an image of "
-              );
-
-              setPlusMenuOpen(false);
-            }}
-            className="w-full p-4 flex gap-3 hover:bg-[#2d2d2d]"
-          >
-            <FiImage />
-            Create Image
-          </button>
+        
 
         </div>
       )}
@@ -266,12 +238,7 @@ const InputBar = ({
           className="flex-1 bg-transparent outline-none"
         />
 
-        <button
-          type="button"
-          onClick={startListening}
-        >
-          <FiMic />
-        </button>
+       
 
         <button
           type="button"
