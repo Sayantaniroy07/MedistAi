@@ -4,6 +4,8 @@ import React, {
   useRef,
 } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import axios from "axios";
 import InputBar from "./InputBar";
 import Sidebar from "./Sidebar";
@@ -209,30 +211,88 @@ setMessages((prev) => [
     console.error(error);
   }
 };
-const sendMessage = async (files = []) => {
- console.log("FILES RECEIVED:", files);
-  // PDF
- if (files.length > 0) {
-  const file = files[0];
 
-  if (file.type.includes("pdf")) {
-    await uploadPDF(file);
-    return;
-  }
 
-  if (file.type.includes("image")) {
-    console.log("IMAGE DETECTED");
-    await analyzeImage(file);
-    return;
-  }
+
+const sendMessage = async (text, files = []) => {
+   console.log("TEXT:", text);
+  console.log("FILES:", files);
+  console.log("FILES RECEIVED:", files);
+
+  // ---------- FILES ----------
+  if (Array.isArray(files) && files.length > 0) {
+    const file = files[0];
+
+    if (file?.type?.includes("pdf")) {
+        await uploadPDF(file);
+        return;
+    }
+
+    if (file?.type?.includes("image")) {
+        await analyzeImage(file);
+        return;
+    }
 }
 
-if (!prompt.trim()) return;
+  // ---------- TEXT ----------
+if (!text.trim()) return;
+
+  const userMessage = {
+    role: "user",
+    content: prompt,
+  };
+
+  const updatedMessages = [...messages, userMessage];
+
+  setMessages(updatedMessages);
+
+  const currentPrompt = text;
+
+  setPrompt("");
+
+  try {
+    setLoading(true);
+
+   const res = await axios.post(
+  "http://localhost:5000/api/chat",
+  {
+    message: text,
+  }
+);
+    const aiMessage = {
+      role: "assistant",
+      content: res.data.answer,
+    };
+
+    const finalMessages = [...updatedMessages, aiMessage];
+
+    setMessages(finalMessages);
+
+    const chats =
+      JSON.parse(localStorage.getItem("chatHistory")) || [];
+
+    const updatedChats = chats.map((chat) =>
+      chat.id === chatId
+        ? {
+            ...chat,
+            messages: finalMessages,
+          }
+        : chat
+    );
+
+    localStorage.setItem(
+      "chatHistory",
+      JSON.stringify(updatedChats)
+    );
+  } catch (err) {
+    console.error(err);
+  } finally {
+    setLoading(false);
+  }
 };
 
-
   return (
-    <div className="h-screen bg-black text-white flex">
+   <div className="h-screen overflow-hidden bg-gradient-to-br from-[#120F2E] via-[#1B163F] to-[#2B255F] text-white flex">
       {/* Common Sidebar */}
       <Sidebar
         sidebarOpen={sidebarOpen}
@@ -240,7 +300,7 @@ if (!prompt.trim()) return;
       />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Header */}
         <div className="flex items-center p-4 border-b border-gray-800">
           <button
@@ -265,7 +325,7 @@ if (!prompt.trim()) return;
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-6 py-8">
+        <div className="flex-1 overflow-y-auto px-6 py-8 pb-36">
           <div className="max-w-4xl mx-auto space-y-6">
             {messages.map((msg, index) => (
               <div
@@ -276,13 +336,13 @@ if (!prompt.trim()) return;
                     : "justify-start"
                 }`}
               >
-                <div
-                  className={`px-5 py-3 rounded-3xl max-w-[70%] ${
-                    msg.role === "user"
-                      ? "bg-blue-600"
-                      : "bg-[#242424]"
-                  }`}
-                >
+               <div
+  className={`px-6 py-5 rounded-2xl shadow-lg border ${
+    msg.role === "user"
+      ? "bg-gradient-to-r from-blue-600 to-blue-500 border-blue-500"
+      : "bg-[#20273D]/90 border-white/10 backdrop-blur-md"
+  } max-w-4xl`}
+>
                  {msg.type === "image" ? (
   <img
     src={msg.imageUrl}
@@ -294,7 +354,11 @@ if (!prompt.trim()) return;
     📄 {msg.fileName}
   </div>
 ) : (
-  msg.content
+ <div className="prose prose-invert max-w-none prose-p:leading-8 prose-li:leading-8 prose-strong:text-blue-300">
+  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+    {msg.content}
+  </ReactMarkdown>
+</div>
 )}
                 </div>
               </div>
@@ -315,8 +379,8 @@ if (!prompt.trim()) return;
         </div>
 
         {/* Input */}
-        <div className="border-t border-gray-800 p-5">
-  <div className="max-w-4xl mx-auto">
+        <div className="border-t border-gray-800 bg-black px-6 py-4 shrink-0">
+  <div className="max-w-4xl w-full mx-auto">
     <InputBar
   prompt={prompt}
   setPrompt={setPrompt}

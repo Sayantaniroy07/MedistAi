@@ -108,11 +108,11 @@ const InputBar = ({
   // SEND
   // =========================
 
-  const handleSend = () => {
-    onSend(selectedFiles);
-
-    setSelectedFiles([]);
-  };
+ const handleSend = () => {
+  console.log("INPUTBAR:", prompt, selectedFiles);
+  onSend(prompt, selectedFiles);
+  setSelectedFiles([]);
+};
 
   return (
     <div className="relative w-full">

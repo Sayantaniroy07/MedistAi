@@ -10,12 +10,16 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <Auth0Provider
-      domain="dev-iqzqb8bx7a6d6iak.us.auth0.com"
-      clientId="VtavkGuw8FWqm23kuWjg04BKXyUx30nU"
-      authorizationParams={{ redirect_uri: window.location.origin }}
-    >
-      <App />
-    </Auth0Provider>
+  domain="dev-iqzqb8bx7a6d6iak.us.auth0.com"
+  clientId="VtavkGuw8FWqm23kuWjg04BKXyUx30nU"
+  authorizationParams={{
+    redirect_uri: window.location.origin,
+  }}
+  cacheLocation="localstorage"
+  useRefreshTokens={true}
+>
+  <App />
+</Auth0Provider>
   </BrowserRouter>
 </StrictMode>,
 )

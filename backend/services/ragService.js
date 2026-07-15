@@ -7,19 +7,19 @@ const doctors = JSON.parse(
 );
 
 export const findDoctors = (disease, city) => {
-  let specialization = "";
+  let specialty = "";
 
   if (disease.toLowerCase().includes("sinus")) {
-    specialization = "ENT";
+    specialty = "ENT";
   }
 
   if (disease.toLowerCase().includes("heart")) {
-    specialization = "Cardiologist";
+    specialty = "Cardiologist";
   }
 
   return doctors.filter(
     (doctor) =>
-      doctor.specialization === specialization &&
+      doctor.specialty === specialty &&
       doctor.city === city
   );
 };

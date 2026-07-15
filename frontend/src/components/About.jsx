@@ -45,20 +45,17 @@ const About = () => {
         {/* Right Content */}
         <div>
           <h3 className="text-4xl lg:text-5xl font-bold dark:text-white leading-tight">
-            Build AI Chatbots That Understand Your Data
+            {/* Build AI Chatbots That Understand Your Data */}
+            Transforming Healthcare with AI Intelligence.
           </h3>
 
           <p className="mt-8 text-gray-600 dark:text-gray-400 leading-8">
-            Our platform enables businesses to create intelligent AI chatbots
-            powered by Retrieval-Augmented Generation (RAG). Instead of relying
-            on generic AI responses, your chatbot learns directly from your
-            documents, websites, PDFs, and internal knowledge bases.
+            MedistAI brings together advanced AI technologies into a single healthcare platform. Our platform leverages Gemini Vision to interpret prescriptions and medical images while a RAG-powered chatbot retrieves relevant medical knowledge to provide accurate, context-aware healthcare assistance.
+            
           </p>
 
           <p className="mt-6 text-gray-600 dark:text-gray-400 leading-8">
-            Whether you're building a customer support assistant, company
-            knowledge bot, educational tutor, or business copilot, our platform
-            delivers accurate and context-aware responses in real time.
+            By combining intelligent document analysis, personalized recommendations, and smart appointment scheduling, MedistAI helps patients access the right care with greater confidence and convenience.
           </p>
 
           {/* Platform Features Card */}
@@ -99,12 +96,12 @@ const About = () => {
 
               <div className="flex items-center gap-3 hover:translate-x-2 transition-all duration-300 cursor-pointer">
                 <span className="text-xl">✅</span>
-                <span>PDF Knowledge Base</span>
+                <span>RAG-Based Medical Knowledge</span>
               </div>
 
               <div className="flex items-center gap-3 hover:translate-x-2 transition-all duration-300 cursor-pointer">
                 <span className="text-xl">✅</span>
-                <span>Website Crawling</span>
+                <span>Medical Report Understanding</span>
               </div>
 
               <div className="flex items-center gap-3 hover:translate-x-2 transition-all duration-300 cursor-pointer">
@@ -114,17 +111,17 @@ const About = () => {
 
               <div className="flex items-center gap-3 hover:translate-x-2 transition-all duration-300 cursor-pointer">
                 <span className="text-xl">✅</span>
-                <span>Multi-file Upload</span>
+                <span>AI Prescription Analysis</span>
               </div>
 
               <div className="flex items-center gap-3 hover:translate-x-2 transition-all duration-300 cursor-pointer">
                 <span className="text-xl">✅</span>
-                <span>Custom Branding</span>
+                <span>Instant Appointment Booking</span>
               </div>
 
               <div className="flex items-center gap-3 hover:translate-x-2 transition-all duration-300 cursor-pointer">
                 <span className="text-xl">✅</span>
-                <span>Secure Data Storage</span>
+                <span>Personalized Healthcare Assistance</span>
               </div>
 
             </div>

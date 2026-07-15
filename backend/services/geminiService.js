@@ -28,19 +28,19 @@ IMPORTANT RULES:
 4. Do NOT write explanations.
 5. Do NOT write any text before or after the JSON.
 6. If information is not visible, use an empty string "" or an empty array [].
-7. specialization must be the most appropriate doctor specialty.
+7. specialty must be the most appropriate doctor specialty.
 
 Return this exact JSON structure:
 
 {
   "disease": "",
-  "specialization": "",
+  "specialty": "",
   "confidence": 0,
   "symptoms": [],
   "medicines": []
 }
 
-Specialization examples:
+specialty examples:
 
 Sinusitis -> ENT Specialist
 Acne -> Dermatologist
@@ -56,7 +56,7 @@ Example output:
 
 {
   "disease": "Hypoglycemia",
-  "specialization": "General Physician",
+  "specialty": "General Physician",
   "confidence": 92,
   "symptoms": ["Giddiness", "Restlessness"],
   "medicines": ["Dextrose 5% IV", "ORS"]

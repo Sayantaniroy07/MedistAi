@@ -43,22 +43,24 @@ const ManualBooking = () => {
       setFile(e.target.files[0]);
     }
   };
-  const handleContinue = async () => {
+const handleContinue = async () => {
   try {
     if (!file) {
-      alert("Please upload a prescription");
+      alert("Please upload a prescription.");
       return;
     }
-
-    const [lat, lng] = formData.location
-      .split(",")
-      .map((v) => v.trim());
 
     const uploadData = new FormData();
 
     uploadData.append("file", file);
-    uploadData.append("lat", lat);
-    uploadData.append("lng", lng);
+    uploadData.append("fullName", formData.fullName);
+    uploadData.append("age", formData.age);
+    uploadData.append("gender", formData.gender);
+    uploadData.append("phone", formData.countryCode + formData.phone);
+    uploadData.append("email", formData.email);
+
+    // Optional fallback if AI cannot determine specialty
+    uploadData.append("specialty", formData.specialty);
 
     const response = await fetch(
       "http://localhost:5000/api/upload/prescription",
@@ -70,12 +72,22 @@ const ManualBooking = () => {
 
     const data = await response.json();
 
-console.log("========== BACKEND RESPONSE ==========");
-console.log(data);
-console.log(JSON.stringify(data, null, 2));
+    console.log("========== BACKEND RESPONSE ==========");
+    console.log(data);
 
-navigate("/appointment/analysis", {
-  state: data,
+   navigate("/appointment/recommendations", {
+  state: {
+    patient:{ 
+      ...formData,
+       phone: formData.countryCode + formData.phone 
+    },
+    disease: data.disease,
+    specialty: data.specialty,
+    confidence: data.confidence,
+    symptoms: data.symptoms,
+    medicines: data.medicines,
+    doctors: data.doctors,
+  },
 });
 
   } catch (error) {
@@ -282,10 +294,10 @@ navigate("/appointment/analysis", {
                   )}
                 </div>
 
-                {/* Specialty */}
+                {/* specialty */}
                 <div className="mt-10">
                   <h3 className="text-2xl font-semibold dark:text-white mb-4">
-                    Select Specialty
+                    Select specialty
                   </h3>
 
                   <select
@@ -294,7 +306,7 @@ navigate("/appointment/analysis", {
                     onChange={handleChange}
                     className="w-full p-4 rounded-xl border dark:bg-[#1a1a1a] dark:text-white"
                   >
-                    <option value="">Choose Specialty</option>
+                    <option value="">Choose specialty</option>
 
                     {specialties.map((specialty, index) => (
                       <option key={index}>{specialty}</option>
@@ -384,7 +396,7 @@ navigate("/appointment/analysis", {
                   </div>
 
                   <div>
-                    <p className="text-gray-500">Specialty</p>
+                    <p className="text-gray-500">specialty</p>
 
                     <p className="font-semibold dark:text-white">
                       {formData.specialty || "Not Selected"}

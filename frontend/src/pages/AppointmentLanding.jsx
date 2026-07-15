@@ -127,7 +127,7 @@ const AppointmentLanding = () => {
   <div className="mt-8 flex flex-col items-center gap-5">
     {[
       "Choose your location",
-      "Select specialization",
+      "Select specialty",
       "Browse doctors nearby",
       "Pick date & time",
     ].map((item, index) => (

@@ -1,6 +1,8 @@
 import logo from './Ai-Assets/logo.svg'
 import arrow_icon from './Ai-Assets/arrow_icon.svg'
 import group_profile from './Ai-Assets/group_profile.png'
+import navlogo from './Ai-Assets/navlogo.png'
+import navlogo_light from './Ai-Assets/navlogo_light.png'
 import bgImage1 from './Ai-Assets/bgImage1.png'
 import bgImage2 from './Ai-Assets/bgImage2.png'
 import hero_img from './Ai-Assets/hero_img.png'
@@ -18,6 +20,9 @@ const assets = {
    doctor1,
    doctor2,
    doctor3,
+   navlogo,
+   navlogo_light,
+   
     logo,
     arrow_icon,
     group_profile,

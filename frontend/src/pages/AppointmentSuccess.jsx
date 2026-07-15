@@ -61,7 +61,7 @@ const AppointmentSuccess = () => {
 
               <div>
                 <p className="text-gray-500 text-sm">
-                  Specialty
+                  specialty
                 </p>
                 <h3 className="font-bold dark:text-white">
                   {appointment.specialty}

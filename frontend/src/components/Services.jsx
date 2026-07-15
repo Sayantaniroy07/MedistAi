@@ -1,44 +1,44 @@
 import React from "react";
 import {
-  FiFileText,
-  FiGlobe,
-  FiMessageSquare,
-  FiSearch,
-  FiHeadphones,
-  FiBriefcase,
-} from "react-icons/fi";
+  LuBot,
+  LuScanSearch,
+  LuFileText,
+  LuStethoscope,
+  LuCalendarCheck2,
+  LuHeartHandshake,
+} from "react-icons/lu";
 
 const Services = () => {
   const services = [
     {
-      icon: <FiFileText size={30} />,
-      title: "PDF Chat",
-      desc: "Upload documents and chat with your PDFs using AI-powered retrieval.",
+      icon: <LuBot size={30} />,
+      title: "AI Healthcare Chatbot",
+      desc: "AI Healthcare Chatbot powered by Retrieval-Augmented Generation that understands medical data and provides accurate, context-aware responses.",
     },
     {
-      icon: <FiGlobe size={30} />,
-      title: "Website Training",
-      desc: "Train your chatbot using website content and online knowledge bases.",
+      icon: <LuScanSearch size={30} />,
+      title: "Prescription Analysis",
+      desc: "Analyze and interpret medical prescriptions with our AI-powered tool.",
     },
     {
-      icon: <FiMessageSquare size={30} />,
-      title: "Custom Chatbots",
-      desc: "Create fully branded AI assistants tailored to your business.",
+      icon: <LuFileText size={30} />,
+      title: "Medical Knowledge Retrieval",
+      desc: "Access context-aware answers generated from trusted medical knowledge sources using RAG.",
     },
     {
-      icon: <FiSearch size={30} />,
-      title: "Semantic Search",
-      desc: "Retrieve the most relevant information with vector search technology.",
+      icon: <LuStethoscope size={30} />,
+      title: "Find Nearby Doctors & Specialists",
+      desc: "Browse recommended specialists from our doctor database and choose the right healthcare professional for your consultation.",
     },
     {
-      icon: <FiHeadphones size={30} />,
-      title: "Customer Support",
-      desc: "Provide instant support with accurate, context-aware AI responses.",
+      icon: <LuCalendarCheck2 size={30} />,
+      title: "Appointment Booking",
+      desc: "Find and compare doctors, select available time slots, and confirm appointments with secure payments.",
     },
     {
-      icon: <FiBriefcase size={30} />,
-      title: "Knowledge Assistant",
-      desc: "Help teams access company information instantly and efficiently.",
+      icon: <LuHeartHandshake size={30} />,
+      title: "Healthcare Assistant",
+      desc: "Manage your healthcare journey—from asking questions to booking consultations—all in one intelligent platform.",
     },
   ];
 

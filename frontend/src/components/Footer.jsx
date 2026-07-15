@@ -50,8 +50,9 @@ const Footer = () => {
             </h2>
 
             <p className="mt-4 text-gray-600 dark:text-gray-400 leading-7">
-              Build intelligent AI chatbots powered by PDFs,
-              websites, and your business knowledge base.
+              AI-Powered Healthcare Platform.
+<br/>
+Analyze prescriptions, discover specialists, locate nearby  specialists, and book appointments through one intelligent system.
             </p>
 
             <div className="flex gap-4 mt-6">
@@ -105,10 +106,10 @@ const Footer = () => {
 
               <li>
                 <a
-                  href="#"
+                  href="https://iapp.org/news/a/llms-with-retrieval-augmented-generation-good-or-bad-for-privacy-compliance-"
                   className="text-gray-600 dark:text-gray-400 hover:text-[#5044E5] transition"
                 >
-                  Careers
+                 Privacy
                 </a>
               </li>
             </ul>
@@ -121,58 +122,78 @@ const Footer = () => {
             </h3>
 
             <ul className="space-y-3 text-gray-600 dark:text-gray-400">
-              <li>PDF Knowledge Base</li>
-              <li>Website Crawling</li>
-              <li>Vector Search</li>
-              <li>Custom Branding</li>
-              <li>Multi-file Upload</li>
+              <li>AI Healthcare Chatbot</li>
+              <li>Prescription Analysis</li>
+              <li>Medical Knowledge Retrieval</li>
+              <li>Doctor Recommendation</li>
+              <li>Appointment Booking</li>
+              <li>Disease & Symptom Analysis</li>
+
             </ul>
           </div>
 
           {/* Resources */}
           <div>
-            <h3 className="text-lg font-semibold mb-5 dark:text-white">
-              Resources
-            </h3>
+  <h3 className="text-lg font-semibold mb-5 dark:text-white">
+    Resources
+  </h3>
 
-            <ul className="space-y-3">
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 dark:text-gray-400 hover:text-[#5044E5] transition"
-                >
-                  Documentation
-                </a>
-              </li>
+  <ul className="space-y-3">
+    <li>
+      <a
+        href="https://python.langchain.com/docs/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-600 dark:text-gray-400 hover:text-[#5044E5] transition"
+      >
+        LangChain Docs
+      </a>
+    </li>
 
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 dark:text-gray-400 hover:text-[#5044E5] transition"
-                >
-                  Pricing
-                </a>
-              </li>
+    <li>
+      <a
+        href="https://docs.pinecone.io/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-600 dark:text-gray-400 hover:text-[#5044E5] transition"
+      >
+        Vector Database
+      </a>
+    </li>
 
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 dark:text-gray-400 hover:text-[#5044E5] transition"
-                >
-                  Blog
-                </a>
-              </li>
+    <li>
+      <a
+        href="https://huggingface.co/blog"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-600 dark:text-gray-400 hover:text-[#5044E5] transition"
+      >
+        AI Blog
+      </a>
+    </li>
 
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 dark:text-gray-400 hover:text-[#5044E5] transition"
-                >
-                  FAQ
-                </a>
-              </li>
-            </ul>
-          </div>
+    <li>
+      <a
+        href="https://www.promptingguide.ai/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-600 dark:text-gray-400 hover:text-[#5044E5] transition"
+      >
+        Prompt Engineering
+      </a>
+    </li>
+     <li>
+      <a
+        href="https://dwarakaprao.medium.com/retrieval-augmented-generation-rag-faq-generator-on-your-docs-22b7f56f785f"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-600 dark:text-gray-400 hover:text-[#5044E5] transition"
+      >
+         FAQ
+      </a>
+    </li>
+  </ul>
+</div>
 
         </div>
 

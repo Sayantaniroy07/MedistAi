@@ -67,37 +67,39 @@ const Hero = () => {
   
       {/* RIGHT SIDE - CONTENT */}
       <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left text-gray-700 dark:text-white">
-        <div className="inline-flex items-center gap-2 border border-gray-300 p-1.5 pr-4 rounded-full">
-          <img
-            className="w-20"
-            src={assets.group_profile}
-            alt="group profile"
-          />
-          <p className="text-xs font-medium">
-          10k+ Doctors ai chats
-          </p>
-        </div>
+       
+          
+<h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-[82px] font-extrabold leading-[0.95] tracking-[-0.03em]">
+  <span className="text-white ">
+ AI  
+  </span>
 
-        <h1 className="mt-6 text-5xl md:text-6xl xl:text-[84px] font-medium leading-tight max-w-4xl">
-          Your Health.
-          <br />
-          Our{' '}
-          <span className="bg-gradient-to-r from-[#5044E5] to-[#4d8cea] bg-clip-text text-transparent">
-            Commitment
-          </span>
-          .
-        </h1>
+  <br />
+
+  <span className="bg-gradient-to-r from-[#5044E5] via-[#6D63FF] to-[#4d8cea] bg-clip-text text-transparent">
+   HEALTH CARE ASSISTANT
+  </span>
+
+
+
+  
+
+</h1>
+     <br/>     
+        
 
         
        <p className="text-sm sm:text-lg font-medium text-gray-500 dark:text-white/75 max-w-4/5 sm:max-w-lg pb-3">
-          Experience AI-powered healthcare solutions and connect with
-          professional doctors anytime, anywhere.
-        </p>
+           Experience AI-powered healthcare solutions and connect with
+         nearby trusted doctors anytime, anywhere. and seamless appointment booking.
+        </p> 
+          
+        
         <button
   onClick={handleGetStarted}
   className="mt-8 px-8 py-4 rounded-full bg-gradient-to-r from-[#5044E5] to-[#4d8cea] text-white font-medium hover:scale-105 transition"
 >
-  Get Started →
+  Start Chat →
 </button>
          
           
@@ -105,19 +107,6 @@ const Hero = () => {
        
      </div>
 
-     <div className="relative flex justify-center items-center mt-20">
-  <img
-    src={assets.hero_img}
-    alt="hero"
-    className="w-full max-w-6xl mx-auto"
-  />
-
-  <img
-    src={assets.bgImage1}
-    alt=""
-    className="absolute -top-10 -right-10 sm:-top-20 sm:right-20 -z-10 dark:hidden"
-  />
-</div>
    </> 
   )
 } 

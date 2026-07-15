@@ -1,17 +1,28 @@
-import { findDoctors } from "../services/ragService.js";
+import { findDoctorsBySpecialization } from "../services/doctorService.js";
 
 export const getRecommendedDoctors = (
   req,
   res
 ) => {
-  const { disease, city } = req.body;
+  try {
+    const { specialty } = req.body;
 
-  const doctors = findDoctors(
-    disease,
-    city
-  );
-console.log("LAT:", lat);
-console.log("LNG:", lng);
-console.log("SPECIALIZATION:", analysis.specialization);
-  res.json(doctors);
+    const doctors =
+      findDoctorsBySpecialization(
+        specialty
+      );
+
+    return res.json({
+      success: true,
+      doctors,
+    });
+
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
 };

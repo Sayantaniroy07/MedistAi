@@ -10,7 +10,7 @@ import Contact from "./components/Contact";
 import Appointment from "./components/Appointment";
 import AppointmentLanding from "./pages/AppointmentLanding";
 import ManualBooking from "./pages/ManualBooking";
-import AIAnalysis from "./pages/AIAnalysis";
+// import AIAnalysis from "./pages/AIAnalysis";
 import DoctorRecommendations from "./pages/DoctorRecommendations";
 import Footer from "./components/Footer";
 import Payment from "./pages/Payment";
@@ -59,10 +59,10 @@ const App = () => {
   element={<ManualBooking />}
 />
 
-<Route
+{/* <Route
   path="/appointment/analysis"
   element={<AIAnalysis />}
-/>
+/> */}
 <Route
   path="/appointment/recommendations"
   element={<DoctorRecommendations />}

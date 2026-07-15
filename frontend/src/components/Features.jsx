@@ -1,31 +1,32 @@
 import React from "react";
-import { FaUserDoctor } from "react-icons/fa6";
-import { FiPhoneCall } from "react-icons/fi";
-import { MdEmergency } from "react-icons/md";
-
+import {
+  LuScanSearch,
+  LuCalendarCheck2,
+  LuBot,
+} from "react-icons/lu";
 const Features = () => {
   const features = [
     {
-      icon: <FaUserDoctor size={35} />,
-      title: "Qualified Doctors",
+      icon: <LuScanSearch size={35} />,
+      title: "AI Prescription Analysis",
       description:
-        "Connect instantly with experienced and verified healthcare professionals.",
+        "Get instant insights and analysis of your prescriptions with our AI-powered tool.",
       bg: "bg-purple-100",
       color: "text-purple-600",
     },
     {
-      icon: <FiPhoneCall size={35} />,
-      title: "24 Hours Service",
+      icon: <LuBot size={35} />,
+      title: "RAG Healthcare Chatbot",
       description:
-        "Get medical assistance anytime with round-the-clock AI and doctor support.",
+        "Ask health-related questions and receive context-aware answers powered by Retrieval-Augmented Generation.",
       bg: "bg-green-100",
       color: "text-green-600",
     },
     {
-      icon: <MdEmergency size={35} />,
-      title: "Need Emergency",
+      icon: <LuCalendarCheck2 size={35} />,
+      title: "Instant Appointment Booking",
       description:
-        "Receive quick guidance and emergency assistance when every second matters.",
+        "Book appointments instantly with our streamlined booking system.",
       bg: "bg-red-100",
       color: "text-red-500",
     },

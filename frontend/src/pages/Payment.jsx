@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Payment = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
+const { patient, analysis, doctor, date, time } = location.state || {};
   const [selectedMethod, setSelectedMethod] = useState("UPI");
 
   const consultationFee = 700;
@@ -12,32 +13,6 @@ const Payment = () => {
 
   const total = consultationFee + platformFee + gst;
 
-  const paymentMethods = [
-    {
-      id: "UPI",
-      icon: "📱",
-      title: "UPI",
-      desc: "Google Pay, PhonePe, Paytm",
-    },
-    {
-      id: "CARD",
-      icon: "💳",
-      title: "Credit / Debit Card",
-      desc: "Visa, Mastercard, RuPay",
-    },
-    {
-      id: "BANK",
-      icon: "🏦",
-      title: "Net Banking",
-      desc: "All major banks supported",
-    },
-    {
-      id: "WALLET",
-      icon: "💰",
-      title: "Wallet",
-      desc: "Paytm Wallet & others",
-    },
-  ];
 
   return (
     <section className="min-h-screen bg-[#F4F8FF] dark:bg-black py-16 px-6 sm:px-12 lg:px-24">
@@ -66,25 +41,61 @@ const Payment = () => {
               </h2>
 
               <div className="space-y-5">
+                <div>
+  <p className="text-gray-500 text-sm">Patient Name</p>
+  <h3 className="font-semibold dark:text-white">
+    {patient?.fullName}
+  </h3>
+</div>
 
+<div>
+  <p className="text-gray-500 text-sm">Age</p>
+  <h3 className="font-semibold dark:text-white">
+    {patient?.age}
+  </h3>
+</div>
+
+<div>
+  <p className="text-gray-500 text-sm">Gender</p>
+  <h3 className="font-semibold dark:text-white">
+    {patient?.gender}
+  </h3>
+</div>
+
+<div>
+  <p className="text-gray-500 text-sm">Phone Number</p>
+  <h3 className="font-semibold dark:text-white">
+    {patient?.phone}
+  </h3>
+</div>
                 <div>
                   <p className="text-gray-500 text-sm">
                     Doctor
                   </p>
 
                   <h3 className="font-semibold text-lg dark:text-white">
-                    Dr. Rahul Sharma
+                    {doctor?.name} 
                   </h3>
                 </div>
 
                 <div>
                   <p className="text-gray-500 text-sm">
-                    Specialization
-                  </p>
+    Specialist
+  </p>
 
-                  <h3 className="font-semibold dark:text-white">
-                    ENT Specialist
-                  </h3>
+  <h3 className="font-semibold dark:text-white">
+    {doctor?.specialty}
+  </h3>
+
+                  <div className="mt-6">
+  <p className="text-gray-500 text-sm">
+    Disease Detected
+  </p>
+
+ <h3 className="font-semibold text-lg text-red-500">
+  {analysis?.disease}
+</h3>
+</div>
                 </div>
 
                 <div>
@@ -93,7 +104,7 @@ const Payment = () => {
                   </p>
 
                   <h3 className="font-semibold dark:text-white">
-                    Tomorrow
+                    {date}
                   </h3>
                 </div>
 
@@ -103,7 +114,7 @@ const Payment = () => {
                   </p>
 
                   <h3 className="font-semibold dark:text-white">
-                    10:30 AM
+                    {time}
                   </h3>
                 </div>
 
@@ -145,10 +156,46 @@ const Payment = () => {
             <div className="bg-white dark:bg-[#111] rounded-3xl p-8 border border-gray-200 dark:border-[#2A2A2A]">
 
               <h2 className="text-2xl font-bold dark:text-white mb-8">
-                Select Payment Method
-              </h2>
+  UPI Payment
+</h2>
 
-              <div className="grid md:grid-cols-2 gap-5">
+<div className="bg-[#F8FAFF] dark:bg-[#1a1a1a] rounded-2xl p-6 border border-gray-200 dark:border-[#2A2A2A]">
+
+  <div className="flex items-center gap-4 mb-6">
+
+    <div className="w-14 h-14 rounded-xl bg-[#EEF2FF] flex items-center justify-center text-3xl">
+      📱
+    </div>
+
+    <div>
+      <h3 className="text-xl font-semibold dark:text-white">
+        Pay Using UPI
+      </h3>
+
+      <p className="text-gray-500 dark:text-gray-400">
+        Google Pay, PhonePe, Paytm, BHIM & other UPI apps
+      </p>
+    </div>
+
+  </div>
+
+  <input
+    type="text"
+    placeholder="Enter your UPI ID (example@upi)"
+    className="w-full p-4 rounded-xl border border-gray-300 dark:border-[#2A2A2A] bg-white dark:bg-black dark:text-white outline-none"
+  />
+
+  <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
+    After clicking <strong>Pay ₹{total}</strong>, you'll be redirected to your preferred UPI app to complete the payment securely.
+  </p>
+
+</div>
+
+              {/* <h2 className="text-2xl font-bold dark:text-white mb-8">
+                Select Payment Method
+              </h2> */}
+
+              {/* <div className="grid md:grid-cols-2 gap-5">
 
                 {paymentMethods.map((method) => (
                   <div
@@ -182,78 +229,36 @@ const Payment = () => {
                   </div>
                 ))}
 
-              </div>
+              </div> */}
 
               {/* Demo Payment Form */}
-              <div className="mt-10">
+              {/* <div className="mt-10">
 
                 <div className="bg-[#F8FAFF] dark:bg-[#1a1a1a] rounded-2xl p-6">
 
-                  <h3 className="text-lg font-semibold dark:text-white mb-5">
-                    Payment Details
-                  </h3>
+                   <h3 className="text-lg font-semibold dark:text-white mb-5">
+    UPI Payment
+  </h3>
 
-                  {selectedMethod === "UPI" && (
-                    <input
-                      type="text"
-                      placeholder="Enter UPI ID"
-                      className="w-full p-4 rounded-xl border border-gray-300 dark:border-[#2A2A2A] bg-white dark:bg-black dark:text-white outline-none"
-                    />
-                  )}
+  <input
+    type="text"
+    placeholder="Enter UPI ID (e.g. username@upi)"
+    className="w-full p-4 rounded-xl border border-gray-300 dark:border-[#2A2A2A] bg-white dark:bg-black dark:text-white outline-none"
+  />
 
-                  {selectedMethod === "CARD" && (
-                    <div className="space-y-4">
-                      <input
-                        type="text"
-                        placeholder="Card Number"
-                        className="w-full p-4 rounded-xl border border-gray-300 dark:border-[#2A2A2A] bg-white dark:bg-black dark:text-white outline-none"
-                      />
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <input
-                          type="text"
-                          placeholder="MM/YY"
-                          className="p-4 rounded-xl border border-gray-300 dark:border-[#2A2A2A] bg-white dark:bg-black dark:text-white outline-none"
-                        />
-
-                        <input
-                          type="text"
-                          placeholder="CVV"
-                          className="p-4 rounded-xl border border-gray-300 dark:border-[#2A2A2A] bg-white dark:bg-black dark:text-white outline-none"
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  {selectedMethod === "BANK" && (
-                    <select className="w-full p-4 rounded-xl border border-gray-300 dark:border-[#2A2A2A] bg-white dark:bg-black dark:text-white outline-none">
-                      <option>Select Bank</option>
-                      <option>SBI</option>
-                      <option>HDFC</option>
-                      <option>ICICI</option>
-                      <option>Axis Bank</option>
-                    </select>
-                  )}
-
-                  {selectedMethod === "WALLET" && (
-                    <select className="w-full p-4 rounded-xl border border-gray-300 dark:border-[#2A2A2A] bg-white dark:bg-black dark:text-white outline-none">
-                      <option>Select Wallet</option>
-                      <option>Paytm Wallet</option>
-                      <option>Amazon Pay</option>
-                      <option>Mobikwik</option>
-                    </select>
-                  )}
-
+  <p className="text-sm text-gray-500 dark:text-gray-400 mt-3">
+    You will be redirected to your preferred UPI app to complete the payment.
+  </p>
                 </div>
 
-              </div>
+              </div> */}
 
               {/* Security */}
-              <div className="mt-8 bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800 rounded-2xl p-5">
+              {/* <div className="mt-8 bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800 rounded-2xl p-5">
                 <p className="text-green-700 dark:text-green-400">
                   🔒 Your payment is encrypted and secured.
                 </p>
-              </div>
+              </div> */}
 
               {/* CTA */}
               <button
