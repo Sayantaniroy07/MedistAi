@@ -22,7 +22,7 @@ r.t
 
 # AI / RAG
 
-vectorstore/
+
 
 # Uploads (optional)
 backend/uploads/
