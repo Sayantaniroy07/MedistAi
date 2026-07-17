@@ -10,7 +10,7 @@ langchain-groq==0.3.5
 langchain-huggingface==0.3.0
 langchain-text-splitters==0.3.8
 langsmith==0.4.4
-Python 3.11.4
+Python== 3.11.4
 groq==0.29.0
 
 sentence-transformers==5.0.0
